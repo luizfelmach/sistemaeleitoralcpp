@@ -12,7 +12,7 @@
 PROJECT    =     deputados
 TARGETS    =     cmd/main.cpp
 FILES      =     ./*.cpp
-IMPORTS    =     internal/*
+IMPORTS    =     pkg/*
 LINKER     =     m
 
 # Folders
