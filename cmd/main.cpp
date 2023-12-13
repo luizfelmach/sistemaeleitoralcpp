@@ -24,10 +24,10 @@ int main(int argc, char **argv) {
     std::cout.imbue(brazilianLocale);
     std::cout << std::fixed << std::setprecision(2);
 
-    AppConfig::setupElectionType(std::string(argv[1]));
-    AppConfig::setupFileOfCandidates(std::string(argv[2]));
-    AppConfig::setupFileOfVoting(std::string(argv[3]));
-    AppConfig::setupElectionDate(std::string(argv[4]));
+    AppConfig::setupElectionType(argv[1]);
+    AppConfig::setupFileOfCandidates(argv[2]);
+    AppConfig::setupFileOfVoting(argv[3]);
+    AppConfig::setupElectionDate(argv[4]);
 
     // AppConfig::show();
 
