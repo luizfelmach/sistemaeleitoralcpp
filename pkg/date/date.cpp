@@ -2,7 +2,7 @@
 #include <sstream>
 #include <vector>
 
-Date::Date(std::string date) {
+Date::Date(const std::string& date) {
     std::vector<std::string> parsedDate;
     std::stringstream stream(date);
     std::string data;
@@ -41,7 +41,7 @@ bool Date::operator==(const Date& date2) const {
            this->year == date2.year;
 }
 
-std::ostream& operator<<(std::ostream& os, const Date& date) {
+std::ostream& operator<<(std::ostream& os, const Date& date) const {
     os << date.to_string();
     return os;
 }

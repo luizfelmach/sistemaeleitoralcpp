@@ -10,7 +10,7 @@ class Date {
 
    public:
     Date() {}
-    Date(std::string date);
+    Date(const std::string& date);
     std::string to_string() const;
     int until(const Date& date) const;
     bool operator>(const Date& date2) const;
