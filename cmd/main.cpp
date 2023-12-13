@@ -1,16 +1,21 @@
-#include <Candidate.hpp>
-#include <PoliticalParty.hpp>
+#include <AppConfig.hpp>
+#include <date.hpp>
 #include <iostream>
-#include <set>
-#include <string>
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 5) {
         std::cerr << "usage: " << argv[0]
                   << " [--estadual/--federal] [file of candidates] [file of "
                      "voting] dd/mm/yyyy]\n";
         exit(1);
     }
+
+    AppConfig::setupElectionType(std::string(argv[1]));
+    AppConfig::setupFileOfCandidates(std::string(argv[2]));
+    AppConfig::setupFileOfVoting(std::string(argv[3]));
+    AppConfig::setupElectionDate(std::string(argv[4]));
+
+    // AppConfig::show();
 
     return 0;
 }
