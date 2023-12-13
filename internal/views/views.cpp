@@ -146,7 +146,7 @@ void TerminalView::FirstAndLastCandidatesOfEachParty() {
         std::cout << leastVoted->getName() << " (";
         std::cout << std::to_string(leastVoted->getNumber()) << ", ";
         std::cout << leastVoted->getTotalVotes() << " ";
-        std::cout << getSlugVotes(mostVoted->getTotalVotes()) << ")\n";
+        std::cout << getSlugVotes(leastVoted->getTotalVotes()) << ")\n";
         i += 1;
     }
 
