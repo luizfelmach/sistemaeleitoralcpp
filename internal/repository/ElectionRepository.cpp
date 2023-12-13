@@ -97,10 +97,12 @@ void ElectionRepository::setupCandidates() {
 
         Gender gender = getCandidatGender(CD_GENERO);
         bool isElected = isCandidateElected(CD_SIT_TOT_TURNO);
+        Date birthdayDate =
+            DT_NASCIMENTO == "" ? Date("01/01/2001") : Date(DT_NASCIMENTO);
 
         Candidate *candidate =
             new Candidate(NM_URNA_CANDIDATO, NR_CANDIDATO, politicalParty,
-                          isElected, gender, Date(DT_NASCIMENTO), NR_FEDERACAO);
+                          isElected, gender, birthdayDate, NR_FEDERACAO);
 
         if (destCaptionVote(NM_TIPO_DESTINACAO_VOTOS)) {
             captionCandidates.insert({NR_CANDIDATO, candidate});
