@@ -2,6 +2,7 @@
 #include <ElectionRepository.hpp>
 #include <iostream>
 #include <usecase.hpp>
+#include <views.hpp>
 
 int main(int argc, char **argv) {
     if (argc != 5) {
@@ -20,6 +21,9 @@ int main(int argc, char **argv) {
 
     ElectionRepository repository;
     UseCase useCase(repository);
+    TerminalView views(useCase);
+
+    views.showAll();
 
     return 0;
 }

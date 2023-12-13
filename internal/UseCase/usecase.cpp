@@ -5,7 +5,9 @@ UseCase::UseCase(ElectionRepository& electionRepository) {
     this->electionRepository = &electionRepository;
 }
 
-int UseCase::numberOfVacancies() { return 21312313; }
+int UseCase::numberOfVacancies() {
+    return electionRepository->getNumberOfElectedCandidates();
+}
 
 std::vector<Candidate*> UseCase::electedCandidates() {
     return std::vector<Candidate*>();
