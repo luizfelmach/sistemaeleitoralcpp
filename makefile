@@ -65,7 +65,7 @@ EXECUTABLES = $(addprefix $(BUILD_B)/, $(subst .cpp,, $(ALL_TARGETS)))
 CC = g++
 AR = ar
 LL = $(addprefix -l, $(LINKER))
-CC_FLAGS += -Wall -O2 -std=c++17
+CC_FLAGS += -Wall -O4 -std=c++17
 DEBUG_FLAGS += -g -fsanitize=address -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize-recover=all -fstack-protector-all -D_FORTIFY_SOURCE=2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC
 
 ifeq ($(DEBUG),true)
