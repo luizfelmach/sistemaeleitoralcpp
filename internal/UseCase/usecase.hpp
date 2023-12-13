@@ -27,10 +27,10 @@ class UseCase {
 
    public:
     UseCase(ElectionRepository &electionRepository);
-    int numberOfVacancies();
-    std::vector<Candidate *> electedCandidates();
+    int NumberOfVacancies();
+    std::vector<Candidate *> ElectedCandidates();
     std::vector<Candidate *> MostVotedCandidates();
-    std::vector<Candidate *> candidatesWouldBeElectedInMajority();
+    std::vector<Candidate *> CandidatesWouldBeElectedInMajority();
     std::vector<Candidate *> ElectedCandidatesInProportionalSystem();
     std::vector<PoliticalParty *> VotesByPartyAndElectedCandidates();
     std::vector<PoliticalParty *> FirstAndLastCandidatesOfEachParty();

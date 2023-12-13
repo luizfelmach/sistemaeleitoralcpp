@@ -1,35 +1,205 @@
+#include <AppConfig.hpp>
 #include <iostream>
 #include <views.hpp>
 
-TerminalView::TerminalView(UseCase& useCase) { this->useCase = &useCase; }
-
-void TerminalView::numberOfVacancies() {
-    std::cout << "Número de vagas: " << useCase->numberOfVacancies() << "\n\n";
+std::string showCandidateName(Candidate* candidate) {
+    std::string withoutFederation = "*";
+    if (candidate->getFederationNumber() == -1) {
+        withoutFederation = "";
+    }
+    return withoutFederation + candidate->getName();
 }
 
-void TerminalView::electedCandidates() {}
+std::string getSlugVotes(int votes) {
+    if (votes <= 1) return "voto";
+    return "votos";
+}
 
-void TerminalView::MostVotedCandidates() {}
+std::string getSlugRollCallVote(int votes) {
+    if (votes <= 1) return "nominal";
+    return "nominais";
+}
 
-void TerminalView::candidatesWouldBeElectedInMajority() {}
+std::string getSlugCandidate(int votes) {
+    if (votes <= 1) return "candidato";
+    return "candidatos";
+}
 
-void TerminalView::ElectedCandidatesInProportionalSystem() {}
+std::string getSlugElected(int votes) {
+    if (votes <= 1) return "eleito";
+    return "eleitos";
+}
 
-void TerminalView::VotesByPartyAndElectedCandidates() {}
+TerminalView::TerminalView(UseCase& useCase) { this->useCase = &useCase; }
 
-void TerminalView::FirstAndLastCandidatesOfEachParty() {}
+void TerminalView::NumberOfVacancies() {
+    std::cout << "Número de vagas: " << useCase->NumberOfVacancies() << "\n\n";
+}
 
-void TerminalView::ElectedCandidatesAgeDistribution() {}
+void TerminalView::ElectedCandidates() {
+    auto candidates = useCase->ElectedCandidates();
 
-void TerminalView::ElectedCandidatesGenderDistribution() {}
+    std::cout << "Deputados " << AppConfig::electionType << " eleitos:\n";
+    int i = 1;
+    for (auto candidate : candidates) {
+        std::cout << i;
+        std::cout << " - " << showCandidateName(candidate);
+        std::cout << " (" << candidate->getPoliticalParty()->getName() << ", ";
+        std::cout << candidate->getTotalVotes();
+        std::cout << " " << getSlugVotes(candidate->getTotalVotes()) << ")\n";
+        i += 1;
+    }
+    std::cout << "\n";
+}
 
-void TerminalView::TotalVotes() {}
+void TerminalView::MostVotedCandidates() {
+    auto candidates = useCase->MostVotedCandidates();
+
+    std::cout << "Candidatos mais votados (em ordem decrescente de votação e "
+                 "respeitando número de vagas):\n";
+    int i = 1;
+    for (auto candidate : candidates) {
+        std::cout << candidate->getRankingMostVoted();
+        std::cout << " - " << showCandidateName(candidate);
+        std::cout << " (" << candidate->getPoliticalParty()->getName() << ", ";
+        std::cout << candidate->getTotalVotes();
+        std::cout << " " << getSlugVotes(candidate->getTotalVotes()) << ")\n";
+        i += 1;
+    }
+    std::cout << "\n";
+}
+
+void TerminalView::CandidatesWouldBeElectedInMajority() {
+    auto candidates = useCase->CandidatesWouldBeElectedInMajority();
+
+    std::cout << "Teriam sido eleitos se a votação fosse majoritária, e não "
+                 "foram eleitos:\n";
+    std::cout << "(com sua posição no ranking de mais votados)\n";
+    int i = 1;
+    for (auto candidate : candidates) {
+        std::cout << candidate->getRankingMostVoted();
+        std::cout << " - " << showCandidateName(candidate);
+        std::cout << " (" << candidate->getPoliticalParty()->getName() << ", ";
+        std::cout << candidate->getTotalVotes();
+        std::cout << " " << getSlugVotes(candidate->getTotalVotes()) << ")\n";
+        i += 1;
+    }
+    std::cout << "\n";
+}
+
+void TerminalView::ElectedCandidatesInProportionalSystem() {
+    auto candidates = useCase->ElectedCandidatesInProportionalSystem();
+
+    std::cout << "Eleitos, que se beneficiaram do sistema proporcional:\n";
+    std::cout << "(com sua posição no ranking de mais votados)\n";
+    int i = 1;
+    for (auto candidate : candidates) {
+        std::cout << candidate->getRankingMostVoted();
+        std::cout << " - " << showCandidateName(candidate);
+        std::cout << " (" << candidate->getPoliticalParty()->getName() << ", ";
+        std::cout << candidate->getTotalVotes();
+        std::cout << " " << getSlugVotes(candidate->getTotalVotes()) << ")\n";
+        i += 1;
+    }
+    std::cout << "\n";
+}
+
+void TerminalView::VotesByPartyAndElectedCandidates() {
+    auto politicalParties = useCase->VotesByPartyAndElectedCandidates();
+
+    std::cout << "Votação dos partidos e número de candidatos eleitos:\n";
+    int i = 1;
+    for (auto politicalParty : politicalParties) {
+        std::cout << i;
+        std::cout << " - " << politicalParty->getName();
+        std::cout << " - " << std::to_string(politicalParty->getNumber());
+        std::cout << ", " << politicalParty->getTotalVotes();
+        std::cout << " " << getSlugVotes(politicalParty->getTotalVotes());
+        std::cout << " (" << politicalParty->getRollCallVotes() << " ";
+        std::cout << getSlugRollCallVote(politicalParty->getRollCallVotes());
+        std::cout << " e " << politicalParty->getCaptionVotes();
+        std::cout << " de legenda), ";
+        std::cout << politicalParty->numberElected() << " ";
+        std::cout << getSlugCandidate(politicalParty->numberElected()) << " ";
+        std::cout << getSlugElected(politicalParty->numberElected()) << "\n";
+        i += 1;
+    }
+
+    std::cout << "\n";
+}
+
+void TerminalView::FirstAndLastCandidatesOfEachParty() {
+    auto politicalParties = useCase->FirstAndLastCandidatesOfEachParty();
+
+    std::cout << "Primeiro e último colocados de cada partido:\n";
+    int i = 1;
+    for (auto politicalParty : politicalParties) {
+        auto mostVoted = politicalParty->getMostVoted();
+        auto leastVoted = politicalParty->getLeastVoted();
+        std::cout << i;
+        std::cout << " - " << politicalParty->getName();
+        std::cout << " - " << politicalParty->getNumber() << ", ";
+        std::cout << mostVoted->getName() << " (";
+        std::cout << std::to_string(mostVoted->getNumber()) << ", ";
+        std::cout << mostVoted->getTotalVotes() << " ";
+        std::cout << getSlugVotes(mostVoted->getTotalVotes()) << ") / ";
+        std::cout << leastVoted->getName() << " (";
+        std::cout << std::to_string(leastVoted->getNumber()) << ", ";
+        std::cout << leastVoted->getTotalVotes() << " ";
+        std::cout << getSlugVotes(mostVoted->getTotalVotes()) << ")\n";
+        i += 1;
+    }
+
+    std::cout << "\n";
+}
+
+void TerminalView::ElectedCandidatesAgeDistribution() {
+    auto result = useCase->ElectedCandidatesAgeDistribution();
+    std::cout << "Eleitos, por faixa etária (na data da eleição):\n";
+    std::cout << "      Idade < 30: " << result.lessThan30 << " ("
+              << (float)result.lessThan30 * 100 / result.total << "%"
+              << ")\n";
+    std::cout << "30 <= Idade < 40: " << result.between30and40 << " ("
+              << (float)result.between30and40 * 100 / result.total << "%"
+              << ")\n";
+    std::cout << "40 <= Idade < 50: " << result.between40and50 << " ("
+              << (float)result.between40and50 * 100 / result.total << "%"
+              << ")\n";
+    std::cout << "50 <= Idade < 60: " << result.between50and60 << " ("
+              << (float)result.between50and60 * 100 / result.total << "%"
+              << ")\n";
+    std::cout << "60 <= Idade     : " << result.greaterThan60 << " ("
+              << (float)result.greaterThan60 * 100 / result.total << "%"
+              << ")\n";
+    std::cout << "\n";
+}
+
+void TerminalView::ElectedCandidatesGenderDistribution() {
+    auto result = useCase->ElectedCandidatesGenderDistribution();
+
+    std::cout << "Eleitos, por gênero:\n";
+    std::cout << "Feminino: " << result.female << " ("
+              << (float)result.female * 100 / result.total << "%)\n";
+    std::cout << "Masculino: " << result.male << " ("
+              << (float)result.male * 100 / result.total << "%)\n";
+    std::cout << "\n";
+}
+
+void TerminalView::TotalVotes() {
+    auto result = useCase->TotalVotes();
+    std::cout << "Total de votos válidos:    " << result.totalVotes << "\n";
+    std::cout << "Total de votos nominais:   " << result.rollCallVotes << " ("
+              << (float)result.rollCallVotes * 100 / result.totalVotes
+              << "%)\n";
+    std::cout << "Total de votos de legenda: " << result.captionVotes << " ("
+              << (float)result.captionVotes * 100 / result.totalVotes << "%)\n";
+}
 
 void TerminalView::showAll() {
-    numberOfVacancies();
-    electedCandidates();
+    NumberOfVacancies();
+    ElectedCandidates();
     MostVotedCandidates();
-    candidatesWouldBeElectedInMajority();
+    CandidatesWouldBeElectedInMajority();
     ElectedCandidatesInProportionalSystem();
     VotesByPartyAndElectedCandidates();
     FirstAndLastCandidatesOfEachParty();

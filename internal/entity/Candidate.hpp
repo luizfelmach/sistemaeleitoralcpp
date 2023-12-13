@@ -36,7 +36,7 @@ class Candidate {
     bool isCaptionCandidate();
     void setIsElected(const bool &isElected);
     bool isElected();
-    void setRankingMostVoted(const int &rankingMostVoted);
+    void setRankingMostVoted(const int rankingMostVoted);
     int getRankingMostVoted();
     int getFederationNumber();
     Gender getGender();

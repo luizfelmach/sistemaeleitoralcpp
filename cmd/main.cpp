@@ -1,5 +1,8 @@
+#include <locale.h>
+
 #include <AppConfig.hpp>
 #include <ElectionRepository.hpp>
+#include <iomanip>
 #include <iostream>
 #include <usecase.hpp>
 #include <views.hpp>
@@ -11,6 +14,11 @@ int main(int argc, char **argv) {
                      "voting] dd/mm/yyyy]\n";
         exit(1);
     }
+
+    std::locale brazilianLocale("pt_BR.utf8");
+    std::locale::global(brazilianLocale);
+    std::cout.imbue(brazilianLocale);
+    std::cout << std::fixed << std::setprecision(2);
 
     AppConfig::setupElectionType(std::string(argv[1]));
     AppConfig::setupFileOfCandidates(std::string(argv[2]));

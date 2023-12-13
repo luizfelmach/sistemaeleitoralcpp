@@ -7,10 +7,10 @@ class TerminalView {
 
    public:
     TerminalView(UseCase &useCase);
-    void numberOfVacancies();
-    void electedCandidates();
+    void NumberOfVacancies();
+    void ElectedCandidates();
     void MostVotedCandidates();
-    void candidatesWouldBeElectedInMajority();
+    void CandidatesWouldBeElectedInMajority();
     void ElectedCandidatesInProportionalSystem();
     void VotesByPartyAndElectedCandidates();
     void FirstAndLastCandidatesOfEachParty();

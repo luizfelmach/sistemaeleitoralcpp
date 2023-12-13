@@ -1,4 +1,4 @@
 .build
 main
 votacao.csv
-candidato.csv
+candidatos.csv

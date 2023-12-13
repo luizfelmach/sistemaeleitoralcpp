@@ -23,4 +23,7 @@ class PoliticalParty {
     void addRollCallVote(const int& partial);
     void addCaptionVote(const int& partial);
     const int& getNumber() const;
+    const int numberElected() const;
+    Candidate* getMostVoted() const;
+    Candidate* getLeastVoted() const;
 };

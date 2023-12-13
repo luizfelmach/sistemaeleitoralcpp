@@ -127,6 +127,11 @@ $(BUILD_T)/%: %.cpp $(LIBRARY) $(HEADER)
 	@$(CC) $(LL) $(CC_FLAGS) -o $(OUT) $< -I$(BUILD_I) -L$(BUILD_L) -l$(PROJECT)  $(LL)
 
 
+runfederal: $(EXECUTABLES)
+	@./$(EXECUTABLES) --federal candidatos.csv votacao.csv 02/10/2022
+runestadual: $(EXECUTABLES)
+	@./$(EXECUTABLES) --estadual candidatos.csv votacao.csv 02/10/2022
+
 .PHONY: clean
 clean:
 	@rm -rf $(LIBRARY) $(OBJECTS) $(TESTS) $(EXECUTABLES) $(notdir $(EXECUTABLES))

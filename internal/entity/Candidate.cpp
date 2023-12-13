@@ -11,6 +11,8 @@ Candidate::Candidate(const std::string& name, int number,
     this->date = birthdayDate;
     this->federationNumber = federationNumber;
     this->totalVotes = 0;
+    this->rejected = false;
+    this->captionCandidate = false;
     this->rankingMostVoted = 0;
     politicalParty->addCandidate(this);
 }
@@ -44,7 +46,7 @@ void Candidate::setIsElected(const bool& isElected) {
 
 bool Candidate::isElected() { return elected; }
 
-void Candidate::setRankingMostVoted(const int& rankingMostVoted) {
+void Candidate::setRankingMostVoted(const int rankingMostVoted) {
     this->rankingMostVoted = rankingMostVoted;
 }
 

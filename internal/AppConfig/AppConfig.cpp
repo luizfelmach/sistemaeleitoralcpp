@@ -39,10 +39,10 @@ void AppConfig::show() {
 
 std::ostream& operator<<(std::ostream& os, const ElectionType& electionType) {
     if (electionType == State) {
-        os << "estadual";
+        os << "estaduais";
     }
     if (electionType == Federal) {
-        os << "federal";
+        os << "federais";
     }
     return os;
 }
