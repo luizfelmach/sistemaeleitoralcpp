@@ -12,12 +12,12 @@ class AppConfig {
     static std::string fileOfVoting;
     static Date electionDate;
 
-    static void setupElectionType(std::string electionType);
-    static void setupFileOfCandidates(std::string fileOfCandidates);
-    static void setupFileOfVoting(std::string fileOfVoting);
-    static void setupElectionDate(std::string electionDate);
+    static void setupElectionType(const std::string& electionType);
+    static void setupFileOfCandidates(const std::string& fileOfCandidates);
+    static void setupFileOfVoting(const std::string& fileOfVoting);
+    static void setupElectionDate(const std::string& electionDate);
 
     static void show();
 };
 
-std::ostream& operator<<(std::ostream& os, ElectionType electionType);
+std::ostream& operator<<(std::ostream& os, const ElectionType& electionType);

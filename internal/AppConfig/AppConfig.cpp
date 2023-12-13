@@ -6,7 +6,7 @@ std::string AppConfig::fileOfCandidates = "";
 std::string AppConfig::fileOfVoting = "";
 Date AppConfig::electionDate = Date("01/01/2001");
 
-void AppConfig::setupElectionType(std::string electionType) {
+void AppConfig::setupElectionType(const std::string& electionType) {
     if (electionType == "--estadual") {
         AppConfig::electionType = State;
         return;
@@ -18,15 +18,15 @@ void AppConfig::setupElectionType(std::string electionType) {
     exit(1);
 }
 
-void AppConfig::setupFileOfCandidates(std::string fileOfCandidates) {
+void AppConfig::setupFileOfCandidates(const std::string& fileOfCandidates) {
     AppConfig::fileOfCandidates = fileOfCandidates;
 }
 
-void AppConfig::setupFileOfVoting(std::string fileOfVoting) {
+void AppConfig::setupFileOfVoting(const std::string& fileOfVoting) {
     AppConfig::fileOfVoting = fileOfVoting;
 }
 
-void AppConfig::setupElectionDate(std::string electionDate) {
+void AppConfig::setupElectionDate(const std::string& electionDate) {
     AppConfig::electionDate = Date(electionDate);
 }
 
@@ -37,7 +37,7 @@ void AppConfig::show() {
     std::cout << "File of Voting: " << AppConfig::fileOfVoting << "\n";
 }
 
-std::ostream& operator<<(std::ostream& os, ElectionType electionType) {
+std::ostream& operator<<(std::ostream& os, const ElectionType& electionType) {
     if (electionType == State) {
         os << "estadual";
     }
