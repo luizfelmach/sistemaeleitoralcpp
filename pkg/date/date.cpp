@@ -41,7 +41,7 @@ bool Date::operator==(const Date& date2) const {
            this->year == date2.year;
 }
 
-std::ostream& operator<<(std::ostream& os, const Date& date) const {
+std::ostream& operator<<(std::ostream& os, const Date& date) {
     os << date.to_string();
     return os;
 }
