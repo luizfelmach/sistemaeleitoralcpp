@@ -13,7 +13,7 @@ class PoliticalParty {
     std::set<Candidate*> candidates;
 
    public:
-    PoliticalParty(const int& number, const std::string& name);
+    PoliticalParty(const int number, const std::string name);
     const std::string& getName() const;
     const int& getRollCallVotes() const;
     const int& getCaptionVotes() const;

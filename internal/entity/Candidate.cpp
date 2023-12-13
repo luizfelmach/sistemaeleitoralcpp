@@ -2,16 +2,17 @@
 
 Candidate::Candidate(const std::string& name, int number,
                      PoliticalParty* politicalParty, bool isElected,
-                     Gender gender, time_t birthdayDate, int federationNumber) {
+                     Gender gender, Date birthdayDate, int federationNumber) {
     this->name = name;
     this->number = number;
     this->politicalParty = politicalParty;
     this->elected = isElected;
     this->gender = gender;
-    this->date = date;
+    this->date = birthdayDate;
     this->federationNumber = federationNumber;
     this->totalVotes = 0;
     this->rankingMostVoted = 0;
+    politicalParty->addCandidate(this);
 }
 
 int Candidate::getNumber() { return number; }
@@ -53,4 +54,4 @@ int Candidate::getFederationNumber() { return federationNumber; }
 
 Gender Candidate::getGender() { return gender; }
 
-time_t Candidate::getBirthdayDate() { return date; }
+Date Candidate::getBirthdayDate() { return date; }

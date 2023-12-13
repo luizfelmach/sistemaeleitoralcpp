@@ -1,6 +1,7 @@
 #pragma once
 
 #include <PoliticalParty.hpp>
+#include <date.hpp>
 #include <string>
 
 class PoliticalParty;
@@ -15,7 +16,7 @@ class Candidate {
     int rankingMostVoted;
     Gender gender;
     bool elected;
-    time_t date;
+    Date date;
     int federationNumber;
     bool rejected;
     bool captionCandidate;
@@ -23,7 +24,7 @@ class Candidate {
    public:
     Candidate(const std::string &name, int number,
               PoliticalParty *politicalParty, bool isElected, Gender gender,
-              time_t birthdayDate, int federationNumber);
+              Date birthdayDate, int federationNumber);
     int getNumber();
     std::string getName();
     int getTotalVotes();
@@ -39,5 +40,5 @@ class Candidate {
     int getRankingMostVoted();
     int getFederationNumber();
     Gender getGender();
-    time_t getBirthdayDate();
+    Date getBirthdayDate();
 };

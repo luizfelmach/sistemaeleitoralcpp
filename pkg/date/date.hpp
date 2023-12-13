@@ -9,6 +9,7 @@ class Date {
     int year;
 
    public:
+    Date() {}
     Date(std::string date);
     std::string to_string() const;
     int until(const Date& date) const;

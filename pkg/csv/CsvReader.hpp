@@ -22,6 +22,7 @@ class CsvReader {
     char delimiter;
     std::vector<std::string> fields;
     void getFields();
+    std::string current;
 
    public:
     CsvReader(const std::string &filename);

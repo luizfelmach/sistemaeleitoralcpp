@@ -1,6 +1,6 @@
 #include <PoliticalParty.hpp>
 
-PoliticalParty::PoliticalParty(const int& number, const std::string& name) {
+PoliticalParty::PoliticalParty(const int number, const std::string name) {
     this->number = number;
     this->name = name;
     this->rollCallVotes = 0;

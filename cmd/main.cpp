@@ -1,5 +1,5 @@
 #include <AppConfig.hpp>
-#include <date.hpp>
+#include <ElectionRepository.hpp>
 #include <iostream>
 
 int main(int argc, char **argv) {
@@ -16,6 +16,8 @@ int main(int argc, char **argv) {
     AppConfig::setupElectionDate(std::string(argv[4]));
 
     // AppConfig::show();
+
+    ElectionRepository repository;
 
     return 0;
 }
