@@ -1,6 +1,7 @@
 #include <AppConfig.hpp>
 #include <ElectionRepository.hpp>
 #include <iostream>
+#include <usecase.hpp>
 
 int main(int argc, char **argv) {
     if (argc != 5) {
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
     // AppConfig::show();
 
     ElectionRepository repository;
+    UseCase useCase(repository);
 
     return 0;
 }
