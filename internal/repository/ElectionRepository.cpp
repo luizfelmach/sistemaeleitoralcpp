@@ -46,6 +46,29 @@ ElectionRepository::ElectionRepository() {
     setupPoliticalParties();
 }
 
+ElectionRepository::~ElectionRepository() {
+
+for (auto [key, val] : candidates) {
+    delete val;
+}
+
+
+for (auto [key, val] : politicalParties) {
+    delete val;
+}
+
+
+for (auto [key, val] : rejectedCandidates) {
+    delete val;
+}
+
+
+for (auto [key, val] : captionCandidates) {
+    delete val;
+}
+
+}
+
 /**
  * @brief Determines the list vote's destination.
  * @param code A code for the list vote's destination.
@@ -147,6 +170,8 @@ void ElectionRepository::setupCandidates() {
             candidates.insert({NR_CANDIDATO, candidate});
         }
     }
+
+    file.close();
 }
 
 void ElectionRepository::setupPoliticalParties() {
@@ -174,6 +199,8 @@ void ElectionRepository::setupPoliticalParties() {
             }
         }
     }
+
+    file.close();
 }
 
 std::vector<Candidate *> ElectionRepository::getAllCandidates() {

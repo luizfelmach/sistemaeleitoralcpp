@@ -28,6 +28,8 @@ class ElectionRepository {
      */
     ElectionRepository();
 
+    ~ElectionRepository();
+
     /**
      * @brief Getter for the set that contains all the candidates.
      * @returns Set of all the candidates. 
