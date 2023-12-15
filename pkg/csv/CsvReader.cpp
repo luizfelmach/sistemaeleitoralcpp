@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 
+#include <iostream>
 #include <sstream>
 
 std::string iso_8859_1_to_utf8(std::string &str) {
@@ -67,6 +68,38 @@ std::string CsvField::get(const std::string &keyToFind) {
         }
     }
     return std::string();
+}
+
+template <>
+int CsvField::getColumn(const int &column) {
+    std::istringstream lineStream(line);
+
+    std::string value;
+
+    for (int i = 0; i < column + 1; i++) {
+        getline(lineStream, value, delimiter);
+    }
+    char *value_c = (char *)value.c_str();
+    value_c++;
+    value_c[value.size() - 2] = '\0';
+    std::string valueStr = std::string(value_c);
+    return stoi(valueStr);
+}
+
+template <>
+std::string CsvField::getColumn(const int &column) {
+    std::istringstream lineStream(line);
+
+    std::string value;
+
+    for (int i = 0; i < column + 1; i++) {
+        getline(lineStream, value, delimiter);
+    }
+    char *value_c = (char *)value.c_str();
+    value_c++;
+    value_c[value.size() - 2] = '\0';
+    std::string valueStr = std::string(value_c);
+    return iso_8859_1_to_utf8(valueStr);
 }
 
 CsvReader::CsvReader(const std::string &filename) {

@@ -18,6 +18,8 @@ class CsvField {
              const char &delimiter);
     template <typename T>
     T get(const std::string &key);
+    template <typename T>
+    T getColumn(const int &column);
 };
 
 class CsvReader {

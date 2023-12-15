@@ -69,22 +69,18 @@ void ElectionRepository::setupCandidates() {
 
     while (file.hasNext()) {
         file >> fields;
-        int NR_PARTIDO = fields.get<int>(CSVFIELD("NR_PARTIDO"));
-        int NR_CANDIDATO = fields.get<int>(CSVFIELD("NR_CANDIDATO"));
-        int CD_CARGO = fields.get<int>(CSVFIELD("CD_CARGO"));
-        int CD_GENERO = fields.get<int>(CSVFIELD("CD_GENERO"));
-        int NR_FEDERACAO = fields.get<int>(CSVFIELD("NR_FEDERACAO"));
-        int CD_SIT_TOT_TURNO = fields.get<int>(CSVFIELD("CD_SIT_TOT_TURNO"));
-        int CD_SITUACAO_CANDIDATO_TOT =
-            fields.get<int>(CSVFIELD("CD_SITUACAO_CANDIDATO_TOT"));
-        std::string SG_PARTIDO =
-            fields.get<std::string>(CSVFIELD("SG_PARTIDO"));
-        std::string DT_NASCIMENTO =
-            fields.get<std::string>(CSVFIELD("DT_NASCIMENTO"));
+        int NR_PARTIDO = fields.getColumn<int>(27);
+        int NR_CANDIDATO = fields.getColumn<int>(16);
+        int CD_CARGO = fields.getColumn<int>(13);
+        int CD_GENERO = fields.getColumn<int>(45);
+        int NR_FEDERACAO = fields.getColumn<int>(30);
+        int CD_SIT_TOT_TURNO = fields.getColumn<int>(56);
+        int CD_SITUACAO_CANDIDATO_TOT = fields.getColumn<int>(68);
+        std::string SG_PARTIDO = fields.getColumn<std::string>(28);
+        std::string DT_NASCIMENTO = fields.getColumn<std::string>(42);
         std::string NM_TIPO_DESTINACAO_VOTOS =
-            fields.get<std::string>(CSVFIELD("NM_TIPO_DESTINACAO_VOTOS"));
-        std::string NM_URNA_CANDIDATO =
-            fields.get<std::string>(CSVFIELD("NM_URNA_CANDIDATO"));
+            fields.getColumn<std::string>(67);
+        std::string NM_URNA_CANDIDATO = fields.getColumn<std::string>(18);
 
         auto it = politicalParties.find(NR_PARTIDO);
         PoliticalParty *politicalParty = it->second;
@@ -124,9 +120,9 @@ void ElectionRepository::setupPoliticalParties() {
 
     while (file.hasNext()) {
         file >> fields;
-        int CD_CARGO = fields.get<int>(CSVFIELD("CD_CARGO"));
-        int NR_VOTAVEL = fields.get<int>(CSVFIELD("NR_VOTAVEL"));
-        int QT_VOTOS = fields.get<int>(CSVFIELD("QT_VOTOS"));
+        int CD_CARGO = fields.getColumn<int>(17);
+        int NR_VOTAVEL = fields.getColumn<int>(19);
+        int QT_VOTOS = fields.getColumn<int>(21);
         if (isValidVote(CD_CARGO, NR_VOTAVEL)) {
             auto it1 = candidates.find(NR_VOTAVEL);
             auto it2 = captionCandidates.find(NR_VOTAVEL);
