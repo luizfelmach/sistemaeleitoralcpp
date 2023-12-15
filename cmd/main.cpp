@@ -7,6 +7,12 @@
 #include <usecase.hpp>
 #include <views.hpp>
 
+/**
+ * The main entry point of the application.
+ * 
+ * @param argc Number of strings in the command-line.
+ * @param argv Command-line arguments containing Election Type, Candidates CSV File, Voting CSV File, and Election Date.
+ */
 int main(int argc, char **argv) {
     std::ios_base::sync_with_stdio(0);
     std::cin.tie(0);

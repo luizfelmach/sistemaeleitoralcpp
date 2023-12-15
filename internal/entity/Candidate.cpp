@@ -1,14 +1,14 @@
 #include <Candidate.hpp>
 
-Candidate::Candidate(const std::string& name, int number,
-                     PoliticalParty* politicalParty, bool isElected,
-                     Gender gender, Date birthdayDate, int federationNumber) {
+Candidate::Candidate(const std::string &name, int number, Date birthDate,
+                     PoliticalParty *politicalParty, Gender gender, 
+                     int federationNumber, bool isElected){
     this->name = name;
     this->number = number;
     this->politicalParty = politicalParty;
     this->elected = isElected;
     this->gender = gender;
-    this->date = birthdayDate;
+    this->date = birthDate;
     this->federationNumber = federationNumber;
     this->totalVotes = 0;
     this->rejected = false;
@@ -56,4 +56,4 @@ int Candidate::getFederationNumber() { return federationNumber; }
 
 Gender Candidate::getGender() { return gender; }
 
-Date Candidate::getBirthdayDate() { return date; }
+Date Candidate::getBirthDate() { return date; }
