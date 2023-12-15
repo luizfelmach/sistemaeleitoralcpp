@@ -25,7 +25,7 @@ int Candidate::getTotalVotes() { return totalVotes; }
 
 void Candidate::addVotes(const int& partial) {
     totalVotes += partial;
-    politicalParty->addRollCallVote(partial);
+    politicalParty->addNominalVote(partial);
 }
 
 PoliticalParty* Candidate::getPoliticalParty() { return politicalParty; }
