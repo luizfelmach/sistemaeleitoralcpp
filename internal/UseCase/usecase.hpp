@@ -26,8 +26,21 @@ class UseCase {
     ElectionRepository *electionRepository;
 
    public:
+
+    /**
+     * @brief UseCase's constructor.
+     * @param electionRepository The election for which the reports will be generated.
+     */
     UseCase(ElectionRepository &electionRepository);
+
+     /**
+     * @brief Getter for the number of vacancies in this election.
+     * @returns Number of vacancies in this election.
+     */
     int NumberOfVacancies();
+
+    //The functions below organize the reports to be printed.
+
     std::vector<Candidate *> ElectedCandidates();
     std::vector<Candidate *> MostVotedCandidates();
     std::vector<Candidate *> CandidatesWouldBeElectedInMajority();

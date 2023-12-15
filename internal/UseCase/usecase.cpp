@@ -10,7 +10,7 @@ bool candidateMostVoted(Candidate *c1, Candidate *c2) {
         return true;
     } else if (t1 < t2) {
         return false;
-    } else if (c1->getBirthdayDate() < c2->getBirthdayDate()) {
+    } else if (c1->getBirthDate() < c2->getBirthDate()) {
         return true;
     }
     return false;
@@ -132,7 +132,7 @@ AgeDistributionResult UseCase::ElectedCandidatesAgeDistribution() {
     int between50and60 = 0;
     int greaterThan60 = 0;
     for (Candidate *candidate : candidates) {
-        int age = candidate->getBirthdayDate().until(AppConfig::electionDate);
+        int age = candidate->getBirthDate().until(AppConfig::electionDate);
         if (age < 30) {
             lessThan30 += 1;
             continue;
@@ -184,9 +184,9 @@ TotalVotesResult UseCase::TotalVotes() {
     int totalRollCallVotes = 0;
     int totalCaptionVotes = 0;
     for (PoliticalParty *politicalParty :
-         electionRepository->getAllPoliticalParty()) {
-        totalRollCallVotes += politicalParty->getRollCallVotes();
-        totalCaptionVotes += politicalParty->getCaptionVotes();
+        electionRepository->getAllPoliticalParty()) {
+        totalRollCallVotes += politicalParty->getNominalVotes();
+        totalCaptionVotes += politicalParty->getListVotes();
     }
     return TotalVotesResult({
         .rollCallVotes = totalRollCallVotes,

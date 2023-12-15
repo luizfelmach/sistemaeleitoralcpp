@@ -2,6 +2,12 @@
 #include <iostream>
 #include <views.hpp>
 
+/**
+ * @brief Formats the candidate as a string to be printed.
+ * 
+ * @param candidate Candidate to be printed.
+ * @returns The string formatted.
+ */
 std::string showCandidateName(Candidate* candidate) {
     std::string withoutFederation = "*";
     if (candidate->getFederationNumber() == -1) {
@@ -10,21 +16,45 @@ std::string showCandidateName(Candidate* candidate) {
     return withoutFederation + candidate->getName();
 }
 
+/**
+ * @brief Formats the votes as a string to be printed.
+ * 
+ * @param votes votes to be printed.
+ * @returns The string formatted.
+ */
 std::string getSlugVotes(int votes) {
     if (votes <= 1) return "voto";
     return "votos";
 }
 
-std::string getSlugRollCallVote(int votes) {
+/**
+ * @brief Defines wether to use plural or singular.
+ * 
+ * @param votes Number of votes to determine the string.
+ * @returns The string formatted.
+ */
+std::string getSlugNominalVote(int votes) {
     if (votes <= 1) return "nominal";
     return "nominais";
 }
 
+/**
+ * @brief Defines wether to use plural or singular.
+ * 
+ * @param votes Number of votes to determine the string.
+ * @returns The string formatted.
+ */
 std::string getSlugCandidate(int votes) {
     if (votes <= 1) return "candidato";
     return "candidatos";
 }
 
+/**
+ * @brief Defines wether to use plural or singular.
+ * 
+ * @param vote Number of votes to determine the string.
+ * @returns The string formatted.
+ */
 std::string getSlugElected(int votes) {
     if (votes <= 1) return "eleito";
     return "eleitos";
@@ -115,9 +145,9 @@ void TerminalView::VotesByPartyAndElectedCandidates() {
         std::cout << " - " << std::to_string(politicalParty->getNumber());
         std::cout << ", " << politicalParty->getTotalVotes();
         std::cout << " " << getSlugVotes(politicalParty->getTotalVotes());
-        std::cout << " (" << politicalParty->getRollCallVotes() << " ";
-        std::cout << getSlugRollCallVote(politicalParty->getRollCallVotes());
-        std::cout << " e " << politicalParty->getCaptionVotes();
+        std::cout << " (" << politicalParty->getNominalVotes() << " ";
+        std::cout << getSlugNominalVote(politicalParty->getNominalVotes());
+        std::cout << " e " << politicalParty->getListVotes();
         std::cout << " de legenda), ";
         std::cout << politicalParty->numberElected() << " ";
         std::cout << getSlugCandidate(politicalParty->numberElected()) << " ";

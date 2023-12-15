@@ -106,14 +106,14 @@ class Candidate {
     bool isElected();
 
     /**
-     * @brief Configures
-     * @param rankingMostVoted 
+     * @brief Configures the position of a candidate amongst others on the Most Voted Ranking.
+     * @param rankingMostVoted Position of a candidate amongst the most voted candidates.
      */
     void setRankingMostVoted(const int rankingMostVoted);
 
     /**
-     * @brief Getter for the 
-     * @returns  
+     * @brief Getter for the position of a candidate amongst the most voted candidates.
+     * @returns  Position of a candidate amongst the most voted candidates.
      */
     int getRankingMostVoted();
 

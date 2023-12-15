@@ -47,9 +47,9 @@ class AppConfig {
 };
 
     /**
-     * @brief 
+     * @brief Formats print according to the Election Type.
      * 
-     * @param os
-     * @param electionType 
+     * @param os String to be printed.
+     * @param electionType Election type (state or federal).
      */
     std::ostream& operator<<(std::ostream& os, const ElectionType& electionType);

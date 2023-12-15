@@ -6,7 +6,16 @@ class TerminalView {
     UseCase *useCase;
 
    public:
+
+    /**
+     * @brief TerminalView's constructor.
+     * 
+     * @param useCase
+     */
     TerminalView(UseCase &useCase);
+
+    //All the functions below format and print strings.
+
     void NumberOfVacancies();
     void ElectedCandidates();
     void MostVotedCandidates();
@@ -17,5 +26,11 @@ class TerminalView {
     void ElectedCandidatesAgeDistribution();
     void ElectedCandidatesGenderDistribution();
     void TotalVotes();
+
+    /**
+     * @brief Prints the reports.
+     * 
+     * @param useCase
+     */
     void showAll();
 };
