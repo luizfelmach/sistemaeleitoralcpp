@@ -5,18 +5,18 @@
 PoliticalParty::PoliticalParty(const int number, const std::string name) {
     this->number = number;
     this->name = name;
-    this->rollCallVotes = 0;
-    this->captionVotes = 0;
+    this->nominalVotes = 0;
+    this->listVotes = 0;
 }
 
 const std::string& PoliticalParty::getName() const { return name; }
 
-const int& PoliticalParty::getRollCallVotes() const { return rollCallVotes; }
+const int& PoliticalParty::getNominalVotes() const { return nominalVotes; }
 
-const int& PoliticalParty::getCaptionVotes() const { return captionVotes; }
+const int& PoliticalParty::getListVotes() const { return listVotes; }
 
 const int PoliticalParty::getTotalVotes() const {
-    return captionVotes + rollCallVotes;
+    return listVotes + nominalVotes;
 }
 
 const std::set<Candidate*>& PoliticalParty::getCandidates() const {
@@ -27,12 +27,12 @@ void PoliticalParty::addCandidate(Candidate* candidate) {
     candidates.insert(candidate);
 }
 
-void PoliticalParty::addRollCallVote(const int& partial) {
-    rollCallVotes += partial;
+void PoliticalParty::addNominalVote(const int& partial) {
+    nominalVotes += partial;
 }
 
-void PoliticalParty::addCaptionVote(const int& partial) {
-    captionVotes += partial;
+void PoliticalParty::addListVote(const int& partial) {
+    listVotes += partial;
 }
 
 const int& PoliticalParty::getNumber() const { return number; }
@@ -57,8 +57,8 @@ Candidate* PoliticalParty::getMostVoted() const {
             }
             if (candidateMostVoted->getTotalVotes() ==
                 candidate->getTotalVotes()) {
-                if (candidateMostVoted->getBirthdayDate() >
-                    candidate->getBirthdayDate()) {
+                if (candidateMostVoted->getBirthDate() >
+                    candidate->getBirthDate()) {
                     candidateMostVoted = candidate;
                 }
             }
@@ -74,15 +74,15 @@ Candidate* PoliticalParty::getMostVoted() const {
 Candidate* PoliticalParty::getLeastVoted() const {
     Candidate* candidateLeastVoted = nullptr;
     for (Candidate* candidate : candidates) {
-        if (!candidate->isRejected() && !candidate->isCaptionCandidate()) {
+        if (!candidate->isRejected() && !candidate->isListCandidate()) {
             if (candidateLeastVoted == nullptr) {
                 candidateLeastVoted = candidate;
                 continue;
             }
             if (candidateLeastVoted->getTotalVotes() ==
                 candidate->getTotalVotes()) {
-                if (candidateLeastVoted->getBirthdayDate() <
-                    candidate->getBirthdayDate()) {
+                if (candidateLeastVoted->getBirthDate() <
+                    candidate->getBirthDate()) {
                     candidateLeastVoted = candidate;
                 }
             }

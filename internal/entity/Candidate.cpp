@@ -12,7 +12,7 @@ Candidate::Candidate(const std::string &name, int number, Date birthDate,
     this->federationNumber = federationNumber;
     this->totalVotes = 0;
     this->rejected = false;
-    this->captionCandidate = false;
+    this->listCandidate = false;
     this->rankingMostVoted = 0;
     politicalParty->addCandidate(this);
 }
@@ -34,11 +34,11 @@ void Candidate::setRejected(const bool& rejected) { this->rejected = rejected; }
 
 bool Candidate::isRejected() { return rejected; }
 
-void Candidate::setCaptionCandidate(const bool& captionCandidate) {
-    this->captionCandidate = captionCandidate;
+void Candidate::setListCandidate(const bool& listCandidate) {
+    this->listCandidate = listCandidate;
 }
 
-bool Candidate::isCaptionCandidate() { return captionCandidate; }
+bool Candidate::isListCandidate() { return listCandidate; }
 
 void Candidate::setIsElected(const bool& isElected) {
     this->elected = isElected;

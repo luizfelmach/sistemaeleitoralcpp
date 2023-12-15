@@ -19,7 +19,7 @@ class Candidate {
     Date date;
     int federationNumber;
     bool rejected;
-    bool captionCandidate;
+    bool listCandidate;
 
    public:
 
@@ -82,16 +82,16 @@ class Candidate {
     bool isRejected();
 
     /**
-     * @brief 
-     * @param captionCandidate 
+     * @brief Sets if a candidate is a list candidate (1) or not (0).
+     * @param ListCandidate A bool for list candidate.
      */
-    void setCaptionCandidate(const bool &captionCandidate);
+    void setListCandidate(const bool &listCandidate);
 
     /**
-     * @brief Getter for ???????????
-     * @returns  
+     * @brief Returns if a candidate is a list candidate (1) or not (0).
+     * @returns A bool for list candidate.
      */
-    bool isCaptionCandidate();
+    bool isListCandidate();
 
     /**
      * @brief Configures the candidate's election status.
