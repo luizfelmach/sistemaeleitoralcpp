@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 
+#include <iostream>
 #include <sstream>
 
 std::string iso_8859_1_to_utf8(std::string &str) {
@@ -18,60 +19,98 @@ std::string iso_8859_1_to_utf8(std::string &str) {
     return strOut;
 }
 
-std::string CsvRemoveQuote(const std::string &plain) {
-    std::string withoutQuote = plain;
-    size_t firstQuote = withoutQuote.find_first_of("\"");
-    size_t lastQuote = withoutQuote.find_last_of("\"");
-    if (firstQuote != std::string::npos && lastQuote != std::string::npos) {
-        withoutQuote.erase(firstQuote, 1);
-        withoutQuote.erase(lastQuote - 1, 1);
-    }
-    return withoutQuote;
-}
-
-CsvField::CsvField(const std::string &line,
-                   const std::vector<std::string> fields,
+CsvField::CsvField(const std::string &line, const std::string &fields,
                    const char &delimiter) {
-    std::istringstream fieldsStream(line);
+    this->line = line;
+    this->fields = fields;
+    this->delimiter = delimiter;
+}
+
+template <>
+int CsvField::get(const std::string &keyToFind) {
+    std::istringstream fieldsStream(fields);
+    std::istringstream lineStream(line);
+
+    std::string key;
     std::string value;
-    for (const std::string &key : fields) {
-        getline(fieldsStream, value, delimiter);
-        this->field.insert(std::pair<std::string, std::string>(
-            CsvRemoveQuote(key), CsvRemoveQuote(value)));
+
+    while (getline(fieldsStream, key, delimiter)) {
+        getline(lineStream, value, delimiter);
+        if (key == keyToFind) {
+            char *value_c = (char *)value.c_str();
+            value_c++;
+            value_c[value.size() - 2] = '\0';
+            std::string valueStr = std::string(value_c);
+            // std::cout << iso_8859_1_to_utf8(valueStr) << "\n";
+            return stoi(valueStr);
+        }
     }
+    return 0;
 }
 
 template <>
-int CsvField::get(const std::string &key) {
-    return stoi(field[key]);
+std::string CsvField::get(const std::string &keyToFind) {
+    std::istringstream fieldsStream(fields);
+    std::istringstream lineStream(line);
+
+    std::string key;
+    std::string value;
+
+    while (getline(fieldsStream, key, delimiter)) {
+        getline(lineStream, value, delimiter);
+        if (key == keyToFind) {
+            char *value_c = (char *)value.c_str();
+            value_c++;
+            value_c[value.size() - 2] = '\0';
+            std::string valueStr = std::string(value_c);
+            // std::cout << iso_8859_1_to_utf8(valueStr) << "\n";
+            return iso_8859_1_to_utf8(valueStr);
+        }
+    }
+    return std::string();
 }
 
 template <>
-std::string CsvField::get(const std::string &key) {
-    return field[key];
+int CsvField::getColumn(const int &column) {
+    std::istringstream lineStream(line);
+
+    std::string value;
+
+    for (int i = 0; i < column + 1; i++) {
+        getline(lineStream, value, delimiter);
+    }
+    char *value_c = (char *)value.c_str();
+    value_c++;
+    value_c[value.size() - 2] = '\0';
+    std::string valueStr = std::string(value_c);
+    return stoi(valueStr);
+}
+
+template <>
+std::string CsvField::getColumn(const int &column) {
+    std::istringstream lineStream(line);
+
+    std::string value;
+
+    for (int i = 0; i < column + 1; i++) {
+        getline(lineStream, value, delimiter);
+    }
+    char *value_c = (char *)value.c_str();
+    value_c++;
+    value_c[value.size() - 2] = '\0';
+    std::string valueStr = std::string(value_c);
+    return iso_8859_1_to_utf8(valueStr);
 }
 
 CsvReader::CsvReader(const std::string &filename) {
     this->filename = filename;
     this->fileStream = std::ifstream(filename);
     this->delimiter = ';';
-    this->getFields();
-}
-
-void CsvReader::getFields() {
-    std::string fields;
-    getline(this->fileStream, fields);
-    fields = iso_8859_1_to_utf8(fields);
-    std::istringstream fieldsStream(fields);
-    std::string field;
-    while (getline(fieldsStream, field, delimiter)) {
-        this->fields.push_back(field);
-    }
+    getline(fileStream, fields);
 }
 
 bool CsvReader::hasNext() {
     if (getline(fileStream, current)) {
-        current = iso_8859_1_to_utf8(current);
         if (current == "") return false;
         return true;
     }
@@ -81,7 +120,6 @@ bool CsvReader::hasNext() {
 void CsvReader::close() { fileStream.close(); }
 
 CsvReader &operator>>(CsvReader &csv, CsvField &cf) {
-    std::string line;
     cf = CsvField(csv.current, csv.fields, csv.delimiter);
     return csv;
 }

@@ -5,8 +5,12 @@
 #include <string>
 #include <vector>
 
+#define CSVFIELD(str) "\"" str "\""
+
 class CsvField {
-    std::map<std::string, std::string> field;
+    char delimiter;
+    std::string fields;
+    std::string line;
 
    public:
     /**
@@ -17,19 +21,20 @@ class CsvField {
     /**
      * @brief CsvField's alternate constructor.
      */
-    CsvField(const std::string &line, const std::vector<std::string> fields,
+    CsvField(const std::string &line, const std::string &fields,
              const char &delimiter);
 
     template <typename T>
     T get(const std::string &key);
+    template <typename T>
+    T getColumn(const int &column);
 };
 
 class CsvReader {
     std::string filename;
     std::ifstream fileStream;
     char delimiter;
-    std::vector<std::string> fields;
-    void getFields();
+    std::string fields;
     std::string current;
 
    public:
